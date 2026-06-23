@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-poppins text-text bg-white dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300;
+  }
+}
+
+.glass-card {
+  @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/20 shadow-lg;
+}
+
+.heading-playfair {
+  @apply font-playfair font-bold;
+}
