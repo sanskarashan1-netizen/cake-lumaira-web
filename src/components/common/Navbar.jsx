@@ -9,7 +9,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
   const [scrolled, setScrolled] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
 
-  const links = ['Cakes', 'Flavours', 'Gallery', 'Testimonials', 'Pricing'];
+  const links = ['Cakes', 'Design', 'Flavours', 'Gallery', 'Testimonials', 'Pricing'];
 
   useEffect(() => {
     const handleScroll = () => {

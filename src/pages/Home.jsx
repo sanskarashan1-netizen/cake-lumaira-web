@@ -1,6 +1,7 @@
 import Navbar from '../components/common/Navbar';
 import Hero from '../components/sections/Hero';
 import FeaturedCakes from '../components/sections/FeaturedCakes';
+import CustomCakeBuilder from '../components/sections/CustomCakeBuilder';
 import Flavours from '../components/sections/Flavours';
 import WhyChooseUs from '../components/sections/WhyChooseUs';
 import SpecialOffer from '../components/sections/SpecialOffer';
@@ -20,6 +21,7 @@ export default function Home({ darkMode, setDarkMode }) {
       <main>
         <Hero />
         <FeaturedCakes />
+        <CustomCakeBuilder />
         <Flavours />
         <WhyChooseUs />
         <SpecialOffer />
