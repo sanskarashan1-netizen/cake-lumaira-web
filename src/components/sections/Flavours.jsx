@@ -22,22 +22,44 @@ export default function Flavours() {
     });
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 1.0, ease: [0.215, 0.61, 0.355, 1] } // Power3.out
+    }
+  };
+
   return (
     <section id="flavours" className="py-32 bg-white dark:bg-gray-950 transition-colors duration-300">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="text-center mb-20">
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="container mx-auto px-6 max-w-6xl"
+      >
+        <motion.div variants={itemVariants} className="text-center mb-20">
           <h2 className="text-sm md:text-base tracking-[0.3em] uppercase text-gray-400 font-poppins font-medium mb-4">Taste Profile</h2>
           <h3 className="text-4xl md:text-5xl font-playfair font-normal text-text dark:text-white">Curated Ingredients</h3>
-        </div>
+        </motion.div>
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {flavours.map((flavour, index) => (
             <motion.div
               key={flavour.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
               className="group cursor-pointer text-center"
               onClick={() => handleFlavourClick(flavour)}
             >
@@ -55,7 +77,7 @@ export default function Flavours() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

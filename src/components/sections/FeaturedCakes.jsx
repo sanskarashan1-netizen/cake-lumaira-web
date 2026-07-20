@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import SectionHeading from '../common/SectionHeading';
 import CakeCard from '../common/CakeCard';
 
@@ -13,19 +14,48 @@ const cakes = [
 ];
 
 export default function FeaturedCakes() {
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 1.0, ease: [0.215, 0.61, 0.355, 1] } // Power3.out
+    }
+  };
+
   return (
     <section id="cakes" className="py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="container mx-auto px-6">
-        <SectionHeading 
-          title="Our Signature Cakes" 
-          subtitle="Explore our most loved handcrafted cakes, made fresh daily with premium ingredients."
-        />
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="container mx-auto px-6"
+      >
+        <motion.div variants={itemVariants}>
+          <SectionHeading 
+            title="Our Signature Cakes" 
+            subtitle="Explore our most loved handcrafted cakes, made fresh daily with premium ingredients."
+          />
+        </motion.div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {cakes.map((cake) => (
-            <CakeCard key={cake.id} {...cake} />
+            <motion.div key={cake.id} variants={itemVariants}>
+              <CakeCard {...cake} />
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

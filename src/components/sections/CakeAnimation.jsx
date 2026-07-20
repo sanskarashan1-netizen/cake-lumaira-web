@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 
-export default function CakeAnimation() {
+export default function CakeAnimation({ mouseX = 0, mouseY = 0 }) {
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+  const floatDistance = isMobile ? -6 : -12;
+
   // Sparkles configuration
   const sparkles = [
     { id: 1, delay: 0, x: -65, y: -160, scale: 0.8 },
@@ -14,10 +17,17 @@ export default function CakeAnimation() {
 
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center select-none">
-      {/* Floating Sparkles and Magic Stars */}
-      <svg 
+      {/* Outer wrapper: follows mouse parallax slightly (max 15px) */}
+      <motion.svg 
+        initial={{ opacity: 0, scale: 0.75, rotate: -8, y: 40 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+        transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+        style={{
+          x: mouseX * 15,
+          y: mouseY * 15,
+        }}
         viewBox="0 0 350 400" 
-        className="w-full h-full drop-shadow-[0_15px_35px_rgba(212,175,55,0.2)] dark:drop-shadow-[0_20px_50px_rgba(212,175,55,0.12)]"
+        className="w-full h-full drop-shadow-[0_15px_35px_rgba(212,175,55,0.18)] dark:drop-shadow-[0_20px_50px_rgba(212,175,55,0.1)]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -51,7 +61,7 @@ export default function CakeAnimation() {
 
           {/* Pedestal Stand Shadow */}
           <radialGradient id="standShadow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#000000" stopOpacity="0.18" />
+            <stop offset="0%" stopColor="#000000" stopOpacity="0.25" />
             <stop offset="100%" stopColor="#000000" stopOpacity="0" />
           </radialGradient>
 
@@ -62,10 +72,24 @@ export default function CakeAnimation() {
           </filter>
         </defs>
 
-        {/* Ambient Stand Shadow on Table */}
-        <ellipse cx="175" cy="340" rx="90" ry="12" fill="url(#standShadow)" />
+        {/* Ambient Stand Shadow on Table - reacts in sync with float */}
+        <motion.ellipse 
+          cx="175" 
+          cy="340" 
+          animate={{
+            rx: [90, 80, 90], // gets smaller/tighter as stand floats higher
+            ry: [12, 10, 12],
+            opacity: [0.18, 0.10, 0.18] // grows fainter as it moves up
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          fill="url(#standShadow)" 
+        />
 
-        {/* Slow Rotating Golden Ring of Magic/Artistry */}
+        {/* Slow Rotating Golden Ring of Magic */}
         <motion.ellipse
           cx="175"
           cy="200"
@@ -80,29 +104,6 @@ export default function CakeAnimation() {
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           style={{ originX: "175px", originY: "200px" }}
         />
-
-        {/* --- PEDESTAL / CAKE STAND (Static & Elegant) --- */}
-        <g id="cakeStand">
-          {/* Base */}
-          <path 
-            d="M 125,325 C 125,325 125,340 175,340 C 225,340 225,325 225,325 L 210,305 C 210,305 195,310 175,310 C 155,310 140,305 140,305 Z" 
-            fill="url(#goldGrad)" 
-          />
-          {/* Stem */}
-          <path 
-            d="M 165,275 L 185,275 L 190,305 L 160,305 Z" 
-            fill="url(#goldGrad)" 
-            opacity="0.9" 
-          />
-          {/* Plate Bottom edge */}
-          <path 
-            d="M 85,265 C 85,275 125,285 175,285 C 225,285 265,275 265,265 L 265,270 C 265,280 225,290 175,290 C 125,290 85,280 85,270 Z" 
-            fill="#B08D2A" 
-          />
-          {/* Plate top ellipse */}
-          <ellipse cx="175" cy="265" rx="90" ry="15" fill="url(#goldGrad)" />
-          <ellipse cx="175" cy="262" rx="86" ry="13" fill="#FFEAA7" opacity="0.15" />
-        </g>
 
         {/* Sparkles Floating Upwards */}
         {sparkles.map((s) => (
@@ -127,174 +128,149 @@ export default function CakeAnimation() {
           />
         ))}
 
-        {/* --- CAKE LAYERS (Interactive, Auto-floating & Hover Responsive) --- */}
-        {/* GROUP HOVER CONTAINER FOR CAKE SYSTEM */}
-        <motion.g className="cursor-pointer">
+        {/* --- CAKE SYSTEM GROUP (Continuous Anti Gravity Float) --- */}
+        <motion.g
+          animate={{
+            y: [0, floatDistance, 0],
+            rotate: [-0.8, 0.8, -0.8]
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ originX: "175px", originY: "200px" }}
+        >
           
+          {/* --- PEDESTAL / CAKE STAND --- */}
+          <g id="cakeStand">
+            {/* Base */}
+            <path 
+              d="M 125,325 C 125,325 125,340 175,340 C 225,340 225,325 225,325 L 210,305 C 210,305 195,310 175,310 C 155,310 140,305 140,305 Z" 
+              fill="url(#goldGrad)" 
+            />
+            {/* Stem */}
+            <path 
+              d="M 165,275 L 185,275 L 190,305 L 160,305 Z" 
+              fill="url(#goldGrad)" 
+              opacity="0.9" 
+            />
+            {/* Plate Bottom edge */}
+            <path 
+              d="M 85,265 C 85,275 125,285 175,285 C 225,285 265,275 265,265 L 265,270 C 265,280 225,290 175,290 C 125,290 85,280 85,270 Z" 
+              fill="#B08D2A" 
+            />
+            {/* Plate top ellipse */}
+            <ellipse cx="175" cy="265" rx="90" ry="15" fill="url(#goldGrad)" />
+            <ellipse cx="175" cy="262" rx="86" ry="13" fill="#FFEAA7" opacity="0.15" />
+          </g>
+
           {/* --- LAYER 1: BOTTOM (Dusty Rose) --- */}
-          <motion.g
-            animate={{
-              y: [0, -3, 0]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <motion.g
-              whileHover={{ y: -12 }}
-              transition={{ type: "spring", stiffness: 220, damping: 15 }}
-            >
-              {/* Cylinder Base */}
-              <path 
-                d="M 100,215 L 100,250 C 100,260 133,268 175,268 C 217,268 250,260 250,250 L 250,215 Z" 
-                fill="url(#roseGrad)" 
-              />
-              {/* Top Face */}
-              <ellipse cx="175" cy="215" rx="75" ry="15" fill="#EABCB9" />
-              
-              {/* Icing Drips decoration */}
-              <path 
-                d="M 100,215 C 105,225 110,227 115,220 C 120,212 125,228 135,224 C 145,220 150,230 160,225 C 170,220 175,228 185,225 C 195,222 200,232 210,226 C 220,220 225,229 235,222 C 245,215 248,223 250,215" 
-                fill="none" 
-                stroke="#FFFFFF" 
-                strokeWidth="3.5" 
-                strokeLinecap="round" 
-                opacity="0.85" 
-              />
-            </motion.g>
-          </motion.g>
+          <g>
+            {/* Cylinder Base */}
+            <path 
+              d="M 100,215 L 100,250 C 100,260 133,268 175,268 C 217,268 250,260 250,250 L 250,215 Z" 
+              fill="url(#roseGrad)" 
+            />
+            {/* Top Face */}
+            <ellipse cx="175" cy="215" rx="75" ry="15" fill="#EABCB9" />
+            
+            {/* Icing Drips decoration */}
+            <path 
+              d="M 100,215 C 105,225 110,227 115,220 C 120,212 125,228 135,224 C 145,220 150,230 160,225 C 170,220 175,228 185,225 C 195,222 200,232 210,226 C 220,220 225,229 235,222 C 245,215 248,223 250,215" 
+              fill="none" 
+              stroke="#FFFFFF" 
+              strokeWidth="3.5" 
+              strokeLinecap="round" 
+              opacity="0.85" 
+            />
+          </g>
 
           {/* --- LAYER 2: MIDDLE (Ivory Cream) --- */}
-          <motion.g
-            animate={{
-              y: [0, -6, 0]
-            }}
-            transition={{
-              duration: 4.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.3
-            }}
-          >
-            <motion.g
-              whileHover={{ y: -24 }}
-              transition={{ type: "spring", stiffness: 220, damping: 15 }}
-            >
-              {/* Cylinder Base */}
-              <path 
-                d="M 112,165 L 112,200 C 112,208 140,215 175,215 C 210,215 238,208 238,200 L 238,165 Z" 
-                fill="url(#creamGrad)" 
-              />
-              {/* Top Face */}
-              <ellipse cx="175" cy="165" rx="63" ry="12" fill="#FFFDF5" />
-              
-              {/* Gold ribbon on middle layer */}
-              <path 
-                d="M 112,185 C 125,192 150,195 175,195 C 200,195 225,192 238,185" 
-                fill="none" 
-                stroke="url(#goldGrad)" 
-                strokeWidth="4" 
-                opacity="0.8" 
-              />
-            </motion.g>
-          </motion.g>
+          <g>
+            {/* Cylinder Base */}
+            <path 
+              d="M 112,165 L 112,200 C 112,208 140,215 175,215 C 210,215 238,208 238,200 L 238,165 Z" 
+              fill="url(#creamGrad)" 
+            />
+            {/* Top Face */}
+            <ellipse cx="175" cy="165" rx="63" ry="12" fill="#FFFDF5" />
+            
+            {/* Gold ribbon on middle layer */}
+            <path 
+              d="M 112,185 C 125,192 150,195 175,195 C 200,195 225,192 238,185" 
+              fill="none" 
+              stroke="url(#goldGrad)" 
+              strokeWidth="4" 
+              opacity="0.8" 
+            />
+          </g>
 
           {/* --- LAYER 3: TOP (Soft Gold & Toppings) --- */}
-          <motion.g
-            animate={{
-              y: [0, -9, 0]
-            }}
-            transition={{
-              duration: 4.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.6
-            }}
-          >
-            <motion.g
-              whileHover={{ y: -36 }}
-              transition={{ type: "spring", stiffness: 220, damping: 15 }}
-            >
-              {/* Cylinder Base */}
-              <path 
-                d="M 125,120 L 125,150 C 125,158 147,163 175,163 C 203,163 225,158 225,150 L 225,120 Z" 
-                fill="url(#goldGrad)" 
-              />
-              {/* Top Face */}
-              <ellipse cx="175" cy="120" rx="50" ry="10" fill="#F3E5AB" />
+          <g>
+            {/* Cylinder Base */}
+            <path 
+              d="M 125,120 L 125,150 C 125,158 147,163 175,163 C 203,163 225,158 225,150 L 225,120 Z" 
+              fill="url(#goldGrad)" 
+            />
+            {/* Top Face */}
+            <ellipse cx="175" cy="120" rx="50" ry="10" fill="#F3E5AB" />
 
-              {/* Decorative cream swirls around top edge */}
-              {Array.from({ length: 8 }).map((_, idx) => {
-                const angle = (idx * Math.PI * 2) / 8;
-                const rx = 45;
-                const ry = 9;
-                const cx = 175 + Math.cos(angle) * rx;
-                const cy = 120 + Math.sin(angle) * ry;
-                return (
-                  <circle 
-                    key={idx} 
-                    cx={cx} 
-                    cy={cy - 2} 
-                    r="3.5" 
-                    fill="#FFF" 
-                    opacity="0.9" 
-                    className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.15)]"
-                  />
-                );
-              })}
-
-              {/* --- CANDLE AND FLAME --- */}
-              <g id="candle">
-                {/* Elegant Gold Patterned Candle */}
-                <rect x="172" y="80" width="6" height="30" rx="1.5" fill="url(#goldGrad)" />
-                {/* White spiral candle stripes */}
-                <path d="M 172,105 L 178,101 M 172,95 L 178,91 M 172,85 L 178,81" stroke="#FFF" strokeWidth="1.5" opacity="0.7" />
-                
-                {/* Wick */}
-                <line x1="175" y1="80" x2="175" y2="74" stroke="#5C3D11" strokeWidth="1.8" />
-
-                {/* Glowing Aura (Behind Flame) */}
-                <circle cx="175" cy="65" r="14" fill="#FFC048" opacity="0.25" filter="url(#flameGlow)" />
-
-                {/* Flame (Animated Flickering Path) */}
-                <motion.path
-                  d="M 175,74 C 170,68 170,60 175,52 C 180,60 180,68 175,74 Z"
-                  fill="url(#flameGrad)"
-                  filter="url(#flameGlow)"
-                  style={{ originX: 0.5, originY: 1 }}
-                  animate={{
-                    scaleY: [1, 1.2, 0.9, 1.15, 1],
-                    scaleX: [1, 0.85, 1.1, 0.9, 1],
-                    skewX: [0, -3, 3, -1, 0],
-                    y: [0, -1, 1, -0.5, 0]
-                  }}
-                  transition={{
-                    duration: 1.4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
+            {/* Decorative cream swirls around top edge */}
+            {Array.from({ length: 8 }).map((_, idx) => {
+              const angle = (idx * Math.PI * 2) / 8;
+              const rx = 45;
+              const ry = 9;
+              const cx = 175 + Math.cos(angle) * rx;
+              const cy = 120 + Math.sin(angle) * ry;
+              return (
+                <circle 
+                  key={idx} 
+                  cx={cx} 
+                  cy={cy - 2} 
+                  r="3.5" 
+                  fill="#FFF" 
+                  opacity="0.9" 
+                  className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.15)]"
                 />
-              </g>
-            </motion.g>
-          </motion.g>
-        </motion.g>
-      </svg>
+              );
+            })}
 
-      {/* Floating instruction tooltip */}
-      <motion.div 
-        className="absolute bottom-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-primary/20 text-xs tracking-wider text-primary font-poppins font-medium shadow-sm flex items-center gap-1.5"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-        </span>
-        INTERACTIVE CAKE: HOVER TO SEPARATE LAYERS
-      </motion.div>
+            {/* --- CANDLE AND FLAME --- */}
+            <g id="candle">
+              {/* Elegant Gold Patterned Candle */}
+              <rect x="172" y="80" width="6" height="30" rx="1.5" fill="url(#goldGrad)" />
+              {/* White spiral candle stripes */}
+              <path d="M 172,105 L 178,101 M 172,95 L 178,91 M 172,85 L 178,81" stroke="#FFF" strokeWidth="1.5" opacity="0.7" />
+              
+              {/* Wick */}
+              <line x1="175" y1="80" x2="175" y2="74" stroke="#5C3D11" strokeWidth="1.8" />
+
+              {/* Glowing Aura (Behind Flame) */}
+              <circle cx="175" cy="65" r="14" fill="#FFC048" opacity="0.25" filter="url(#flameGlow)" />
+
+              {/* Flame (Animated Flickering Path - flickers scale, rotation, brightness) */}
+              <motion.path
+                d="M 175,74 C 170,68 170,60 175,52 C 180,60 180,68 175,74 Z"
+                fill="url(#flameGrad)"
+                filter="url(#flameGlow)"
+                style={{ originX: "175px", originY: "74px" }}
+                animate={{
+                  scaleY: [1, 1.08, 0.96, 1.08, 1],
+                  scaleX: [1, 0.94, 1.06, 0.94, 1],
+                  rotate: [-2, 2, -1, 1, -2],
+                  opacity: [0.95, 1, 0.9, 1, 0.95]
+                }}
+                transition={{
+                  duration: 1.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </g>
+          </g>
+        </motion.g>
+      </motion.svg>
     </div>
   );
 }

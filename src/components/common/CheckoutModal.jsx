@@ -15,11 +15,8 @@ export default function CheckoutModal({ isOpen, onClose }) {
     setIsSubmitting(true);
     
     const formData = new FormData(e.target);
-    const newOrderId = `LUM-${Math.floor(100000 + Math.random() * 900000)}`;
-    setOrderId(newOrderId);
 
     const orderData = {
-      orderId: newOrderId,
       customer: {
         name: formData.get('name'),
         phone: formData.get('phone'),
@@ -28,18 +25,24 @@ export default function CheckoutModal({ isOpen, onClose }) {
       },
       paymentMethod: formData.get('payment'),
       items: cartItems,
-      total: cartTotal,
-      createdAt: new Date().toISOString()
+      total: cartTotal
     };
 
     try {
-      await fetch('http://localhost:5000/orders', {
+      const response = await fetch('http://localhost:5000/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(orderData)
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      const savedOrder = await response.json();
+      setOrderId(savedOrder.orderId);
       
       setStep(2);
       clearCart();
