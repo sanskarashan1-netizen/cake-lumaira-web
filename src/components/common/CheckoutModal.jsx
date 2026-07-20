@@ -4,6 +4,10 @@ import { X, CheckCircle } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import Button from './Button';
 
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://cake-lumaira-backend.onrender.com' 
+  : 'http://localhost:5000';
+
 export default function CheckoutModal({ isOpen, onClose }) {
   const { cartItems, cartTotal, clearCart, setIsCartOpen } = useCart();
   const [step, setStep] = useState(1); // 1 = Form, 2 = Success
@@ -29,7 +33,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/orders', {
+      const response = await fetch(`${API_BASE_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
