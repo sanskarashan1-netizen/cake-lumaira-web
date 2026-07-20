@@ -3,9 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CartProvider } from './context/CartContext';
 import Home from './pages/Home';
 import Loader from './components/common/Loader';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -42,6 +46,9 @@ function App() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+
+    // Synchronize ScrollTrigger with Lenis
+    lenis.on('scroll', ScrollTrigger.update);
 
     function raf(time) {
       lenis.raf(time);
