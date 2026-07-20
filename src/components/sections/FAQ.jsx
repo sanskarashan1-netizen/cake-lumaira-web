@@ -14,31 +14,32 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="py-24 bg-secondary/30 dark:bg-gray-800/30 transition-colors duration-300">
-      <div className="container mx-auto px-6 max-w-3xl">
+    <section className="py-12 sm:py-24 bg-secondary/30 dark:bg-gray-800/30 transition-colors duration-300">
+      <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
         <SectionHeading 
           title="Frequently Asked Questions" 
+          overline="Help Center"
           subtitle="Got questions? We've got answers to help make your experience smooth."
         />
         
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.08 }}
               className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
-                className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
+                className="w-full px-4 py-4 sm:px-6 sm:py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer"
               >
-                <span className="font-bold font-playfair text-lg text-text dark:text-white pr-8">{faq.question}</span>
+                <span className="font-bold font-playfair text-base sm:text-lg tracking-wide text-text dark:text-white pr-4 sm:pr-8">{faq.question}</span>
                 <ChevronDown 
                   className={`text-primary shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
-                  size={24} 
+                  size={20} 
                 />
               </button>
               <AnimatePresence>

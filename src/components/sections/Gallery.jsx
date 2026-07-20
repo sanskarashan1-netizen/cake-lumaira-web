@@ -40,22 +40,23 @@ export default function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section id="gallery" className="py-12 sm:py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-50px" }}
         variants={containerVariants}
-        className="container mx-auto px-6"
+        className="container mx-auto px-4 sm:px-6"
       >
         <motion.div variants={itemVariants}>
           <SectionHeading 
             title="Our Masterpieces" 
+            overline="Visual Feast"
             subtitle="Take a look at some of our beautifully crafted cakes."
           />
         </motion.div>
         
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
           {galleryImages.map((src, index) => (
             <motion.div
               key={index}

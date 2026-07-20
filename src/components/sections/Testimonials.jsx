@@ -22,23 +22,24 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 bg-secondary/30 dark:bg-gray-800/30 transition-colors duration-300">
-      <div className="container mx-auto px-6">
+    <section id="testimonials" className="py-12 sm:py-24 bg-secondary/30 dark:bg-gray-800/30 transition-colors duration-300">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeading 
           title="Sweet Words" 
+          overline="Customer Reviews"
           subtitle="Don't just take our word for it. Here's what our lovely customers have to say."
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.08 }}
               whileHover={{ y: -5 }}
-              className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-800"
+              className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-800"
             >
               <div className="flex text-yellow-400 mb-6">
                 {[...Array(5)].map((_, i) => (

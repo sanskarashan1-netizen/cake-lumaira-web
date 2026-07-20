@@ -57,34 +57,34 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-32 bg-secondary dark:bg-gray-950 transition-colors duration-300">
+    <section id="pricing" className="py-12 sm:py-24 bg-secondary dark:bg-gray-950 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-50px" }}
         variants={containerVariants}
-        className="container mx-auto px-6 max-w-6xl"
+        className="container mx-auto px-4 sm:px-6 max-w-6xl"
       >
-        <motion.div variants={itemVariants} className="text-center mb-20">
-          <h2 className="text-sm md:text-base tracking-[0.3em] uppercase text-gray-400 font-poppins font-medium mb-4">Collections</h2>
-          <h3 className="text-4xl md:text-5xl font-playfair font-normal text-text dark:text-white">Pricing Tiers</h3>
+        <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-16">
+          <h2 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-poppins font-semibold mb-2 sm:mb-3">Collections</h2>
+          <h3 className="text-2xl sm:text-4xl md:text-5xl font-playfair font-normal tracking-wide text-text dark:text-white">Pricing Tiers</h3>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
               variants={itemVariants}
               whileHover={{ 
-                y: -8, 
+                y: -6, 
                 borderColor: "#D4AF37", 
                 boxShadow: plan.highlight 
                   ? "0 30px 60px -15px rgba(212, 175, 55, 0.22)" 
                   : "0 25px 50px -12px rgba(212, 175, 55, 0.15)"
               }}
               transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-              className={`p-10 flex flex-col items-center justify-between text-center transition-all duration-500 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-3xl ${
-                plan.highlight ? 'py-16 shadow-2xl scale-105 z-10 border-primary/40' : 'shadow-sm'
+              className={`p-6 sm:p-10 flex flex-col items-center justify-between text-center transition-all duration-500 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-3xl ${
+                plan.highlight ? 'py-8 sm:py-14 shadow-2xl scale-100 md:scale-105 z-10 border-primary/40' : 'shadow-sm'
               }`}
             >
               <div className="w-full flex flex-col items-center">

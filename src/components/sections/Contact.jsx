@@ -5,29 +5,30 @@ import Button from '../common/Button';
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-12 sm:py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeading 
           title="Get In Touch" 
+          overline="Contact Us"
           subtitle="Have a special request or want to place a custom order? We'd love to hear from you."
         />
         
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto mt-12">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-12 max-w-5xl mx-auto mt-6 sm:mt-12">
           {/* Contact Details */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
-            <div className="bg-secondary/30 dark:bg-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 h-full flex flex-col justify-center gap-8">
+            <div className="bg-secondary/30 dark:bg-gray-800 p-6 sm:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 h-full flex flex-col justify-center gap-6 sm:gap-8">
               <div className="flex items-start gap-4">
                 <div className="bg-white dark:bg-gray-700 p-3 rounded-full text-primary shadow-sm">
                   <Phone size={24} />
                 </div>
                 <div>
                   <h4 className="font-bold font-playfair text-xl text-text dark:text-white mb-1">Phone</h4>
-                  <p className="text-gray-600 dark:text-gray-300">+91 98765 43210</p>
+                  <a href="tel:+917208949865" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">+91 72089 49865</a>
                 </div>
               </div>
               
@@ -37,7 +38,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold font-playfair text-xl text-text dark:text-white mb-1">Email</h4>
-                  <p className="text-gray-600 dark:text-gray-300">hello@lumaira.com</p>
+                  <a href="mailto:affankhan2533@gmail.com" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">affankhan2533@gmail.com</a>
                 </div>
               </div>
               
@@ -58,7 +59,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700"
+            className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700"
           >
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

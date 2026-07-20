@@ -25,7 +25,7 @@ export default function Footer() {
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                 </svg>
               </a>
-              <a href="#" className="w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-500 hover:shadow-md transition-all">
+              <a href="https://wa.me/917208949865" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp" className="w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-500 hover:shadow-md transition-all">
                 <MessageCircle size={20} />
               </a>
             </div>
@@ -58,8 +58,9 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-500 dark:text-gray-500 text-sm">
+        <div className="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-poppins">
           <p>&copy; 2026 Lumaira Cakes. All Rights Reserved.</p>
+          <p>Developed by <span className="text-gray-700 dark:text-gray-200 font-medium">Sanskar Ashan</span></p>
         </div>
       </div>
     </footer>

@@ -8,7 +8,7 @@ export default function Loader({ onComplete }) {
     const timer = setTimeout(() => {
       setVisible(false);
       if (onComplete) onComplete();
-    }, 1500);
+    }, 700);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -19,7 +19,7 @@ export default function Loader({ onComplete }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
           className="fixed inset-0 bg-black z-[99999] flex flex-col items-center justify-center select-none"
         >
           {/* Gold Logo */}

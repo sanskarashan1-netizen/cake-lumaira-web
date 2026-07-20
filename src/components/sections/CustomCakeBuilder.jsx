@@ -59,29 +59,29 @@ export default function CustomCakeBuilder() {
   const topRx = tiers === 1 ? 75 : tiers === 2 ? 63 : 50;
 
   return (
-    <section id="design" className="py-24 bg-secondary dark:bg-gray-950 transition-colors duration-300 relative overflow-hidden">
+    <section id="design" className="py-12 sm:py-24 bg-secondary dark:bg-gray-950 transition-colors duration-300 relative overflow-hidden">
       {/* Background elegant decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
           <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-primary font-poppins font-semibold">
             Bake Your Dreams
           </span>
-          <h2 className="text-4xl md:text-5xl font-playfair font-light text-text dark:text-white mt-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-light text-text dark:text-white mt-2 sm:mt-3">
             Design Your Own Cake
           </h2>
-          <div className="h-[1px] w-20 bg-primary/45 mx-auto mt-4 mb-6"></div>
-          <p className="text-gray-600 dark:text-gray-300 font-poppins font-light leading-relaxed">
+          <div className="h-[1px] w-20 bg-primary/45 mx-auto mt-3 sm:mt-4 mb-4 sm:mb-6"></div>
+          <p className="text-gray-600 dark:text-gray-300 font-poppins font-light text-xs sm:text-base leading-relaxed px-2">
             Customize every layer to your personal taste. Watch your masterpiece come to life in real-time as you select your options.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* LEFT COLUMN: LIVE DYNAMIC PREVIEW */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-8 shadow-xl min-h-[480px]">
-            <span className="text-xs font-semibold tracking-widest text-primary mb-6 uppercase">Live Preview</span>
+          <div className="lg:col-span-6 flex flex-col items-center justify-center bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-5 sm:p-8 shadow-xl min-h-[380px] sm:min-h-[480px]">
+            <span className="text-xs font-semibold tracking-widest text-primary mb-4 sm:mb-6 uppercase">Live Preview</span>
             
             <div className="relative w-full max-w-[320px] aspect-square flex items-center justify-center">
               <svg viewBox="0 0 350 400" className="w-full h-full drop-shadow-[0_12px_24px_rgba(0,0,0,0.1)]" xmlns="http://www.w3.org/2000/svg">

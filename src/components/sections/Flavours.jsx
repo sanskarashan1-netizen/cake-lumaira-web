@@ -41,20 +41,20 @@ export default function Flavours() {
   };
 
   return (
-    <section id="flavours" className="py-32 bg-white dark:bg-gray-950 transition-colors duration-300">
+    <section id="flavours" className="py-12 sm:py-24 bg-white dark:bg-gray-950 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-50px" }}
         variants={containerVariants}
-        className="container mx-auto px-6 max-w-6xl"
+        className="container mx-auto px-4 sm:px-6 max-w-6xl"
       >
-        <motion.div variants={itemVariants} className="text-center mb-20">
-          <h2 className="text-sm md:text-base tracking-[0.3em] uppercase text-gray-400 font-poppins font-medium mb-4">Taste Profile</h2>
-          <h3 className="text-4xl md:text-5xl font-playfair font-normal text-text dark:text-white">Curated Ingredients</h3>
+        <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-16">
+          <h2 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-poppins font-semibold mb-2 sm:mb-3">Taste Profile</h2>
+          <h3 className="text-2xl sm:text-4xl md:text-5xl font-playfair font-normal tracking-wide text-text dark:text-white">Curated Ingredients</h3>
         </motion.div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6">
           {flavours.map((flavour, index) => (
             <motion.div
               key={flavour.name}
