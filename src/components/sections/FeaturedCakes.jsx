@@ -15,7 +15,14 @@ const defaultCakes = [
 ];
 
 export default function FeaturedCakes() {
-  const [cakes, setCakes] = useState(defaultCakes);
+  const [cakes, setCakes] = useState(() => {
+    try {
+      const cached = localStorage.getItem('lumaira_featured_cakes');
+      return cached ? JSON.parse(cached) : defaultCakes;
+    } catch {
+      return defaultCakes;
+    }
+  });
 
   useEffect(() => {
     const fetchCakes = async () => {
@@ -28,6 +35,7 @@ export default function FeaturedCakes() {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             setCakes(data);
+            localStorage.setItem('lumaira_featured_cakes', JSON.stringify(data));
           }
         }
       } catch (err) {

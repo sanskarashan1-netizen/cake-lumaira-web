@@ -55,7 +55,14 @@ const defaultSlides = [
 ];
 
 export default function CinematicHero() {
-  const [slides, setSlides] = useState(defaultSlides);
+  const [slides, setSlides] = useState(() => {
+    try {
+      const cached = localStorage.getItem('lumaira_hero_slides');
+      return cached ? JSON.parse(cached) : defaultSlides;
+    } catch {
+      return defaultSlides;
+    }
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -69,6 +76,7 @@ export default function CinematicHero() {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             setSlides(data);
+            localStorage.setItem('lumaira_hero_slides', JSON.stringify(data));
           }
         }
       } catch (err) {
