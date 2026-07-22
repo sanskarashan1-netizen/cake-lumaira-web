@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ZoomIn } from 'lucide-react';
 import SectionHeading from '../common/SectionHeading';
 
 const galleryImages = [
@@ -31,16 +31,16 @@ export default function Gallery() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 80 },
+    hidden: { opacity: 0, y: 40 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 1.0, ease: [0.215, 0.61, 0.355, 1] } // Power3.out
+      transition: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }
     }
   };
 
   return (
-    <section id="gallery" className="py-12 sm:py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section id="gallery" className="py-16 sm:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
@@ -52,38 +52,42 @@ export default function Gallery() {
           <SectionHeading 
             title="Our Masterpieces" 
             overline="Visual Feast"
-            subtitle="Take a look at some of our beautifully crafted cakes."
+            subtitle="Explore our handcrafted gallery with uniform, high-resolution artisanal creations."
           />
         </motion.div>
         
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
+        {/* Uniform Grid with Identical 4:3 Aspect Ratios */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {galleryImages.map((src, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               whileHover={{ 
-                scale: 1.04,
-                boxShadow: "0 20px 40px -15px rgba(0,0,0,0.12)"
+                y: -4,
+                boxShadow: "0 20px 30px -10px rgba(0,0,0,0.15)"
               }}
-              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
               onClick={() => setSelectedImg(src)}
-              className="relative group cursor-pointer overflow-hidden rounded-2xl break-inside-avoid bg-gray-50 dark:bg-gray-950"
+              className="relative group cursor-pointer overflow-hidden rounded-2xl aspect-[4/3] bg-gray-100 dark:bg-gray-800/80 shadow-md border border-gray-100 dark:border-gray-800"
             >
               <img 
                 src={src} 
                 alt={`Cake Gallery ${index + 1}`} 
                 loading="lazy"
-                className="w-full h-auto object-cover transition-transform duration-1000 ease-in-out opacity-95 group-hover:opacity-100"
+                className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-white font-playfair text-lg tracking-wider pointer-events-none opacity-0">View Full</span>
+              
+              {/* Dark Hover Mask with Zoom Icon */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white">
+                <ZoomIn size={22} className="transform scale-95 group-hover:scale-105 transition-transform" />
+                <span className="font-playfair text-sm tracking-wider font-medium">View Full</span>
               </div>
             </motion.div>
           ))}
         </div>
       </motion.div>
 
-      {/* Lightbox */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedImg && (
           <motion.div
@@ -91,21 +95,22 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImg(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
           >
             <button 
               onClick={() => setSelectedImg(null)}
-              className="absolute top-6 right-6 text-white hover:text-primary transition-colors cursor-pointer"
+              className="absolute top-6 right-6 text-white hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-white/10"
+              aria-label="Close modal"
             >
-              <X size={32} />
+              <X size={28} />
             </button>
             <motion.img 
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
               src={selectedImg} 
               alt="Selected Cake" 
-              className="max-w-full max-h-[90vh] rounded-xl shadow-2xl"
+              className="max-w-full max-h-[88vh] rounded-2xl shadow-2xl object-contain border border-white/10"
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>

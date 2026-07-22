@@ -11,6 +11,45 @@
   }
 }
 
+/* Lenis Smooth Scroll Recommended Rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Luxury Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.7);
+}
+
 .glass-card {
   @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/20 shadow-lg;
 }
@@ -100,4 +139,37 @@
   animation: textShimmer 10s infinite;
 }
 
+/* Infinite Marquee Scroll Utilities */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
+@keyframes marqueeScrollReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-smooth {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 45s linear infinite;
+}
+
+.animate-marquee-reverse-smooth {
+  display: flex;
+  width: max-content;
+  animation: marqueeScrollReverse 50s linear infinite;
+}
+
+.pause-on-hover:hover {
+  animation-play-state: paused !important;
+}

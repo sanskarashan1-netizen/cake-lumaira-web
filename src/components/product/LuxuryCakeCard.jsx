@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag } from 'lucide-react';
-import Button from './Button';
+import Button from '../common/Button';
 import { useCart } from '../../context/CartContext';
 
-export default function CakeCard({ id, image, name, description, price, available = true }) {
+export default function LuxuryCakeCard({ id, image, name, description, price, available = true }) {
   const { addToCart } = useCart();
   const isOutOfStock = available === false || available === "false" || available === 0;
 

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Navbar from '../components/common/Navbar';
-import Hero from '../components/sections/Hero';
+import LuxuryNavbar from '../components/layout/LuxuryNavbar';
+import CinematicHero from '../components/hero/CinematicHero';
 import FeaturedCakes from '../components/sections/FeaturedCakes';
 import CustomCakeBuilder from '../components/sections/CustomCakeBuilder';
 import Flavours from '../components/sections/Flavours';
@@ -74,10 +74,10 @@ export default function Home({ darkMode, setDarkMode }) {
 
   return (
     <>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <LuxuryNavbar darkMode={darkMode} setDarkMode={setDarkMode} />
       
       <main>
-        <Hero />
+        <CinematicHero />
         <FeaturedCakes />
         <CustomCakeBuilder />
         <Flavours />

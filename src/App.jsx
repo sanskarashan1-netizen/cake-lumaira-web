@@ -16,8 +16,12 @@ function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Scroll listener for back-to-top button
+  // Scroll listener for back-to-top button and hash cleaner
   useEffect(() => {
+    if (window.location.hash && window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 500);
     };
@@ -72,7 +76,7 @@ function App() {
   return (
     <BrowserRouter>
       <CartProvider>
-        <div className="font-poppins text-text dark:text-gray-100 bg-secondary dark:bg-gray-950 transition-colors duration-500 min-h-screen">
+        <div className="font-poppins text-text dark:text-gray-100 bg-secondary dark:bg-gray-950 transition-colors duration-500 min-h-screen relative selection:bg-primary selection:text-white">
           
 
 

@@ -57,7 +57,7 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-12 sm:py-24 bg-secondary dark:bg-gray-950 transition-colors duration-300">
+    <section id="pricing" className="py-16 sm:py-20 bg-secondary dark:bg-gray-950 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
@@ -65,7 +65,7 @@ export default function Pricing() {
         variants={containerVariants}
         className="container mx-auto px-4 sm:px-6 max-w-6xl"
       >
-        <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-16">
+        <motion.div variants={itemVariants} className="text-center mb-6 sm:mb-10">
           <h2 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-poppins font-semibold mb-2 sm:mb-3">Collections</h2>
           <h3 className="text-2xl sm:text-4xl md:text-5xl font-playfair font-normal tracking-wide text-text dark:text-white">Pricing Tiers</h3>
         </motion.div>

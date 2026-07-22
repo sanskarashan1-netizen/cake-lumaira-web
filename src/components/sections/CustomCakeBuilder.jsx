@@ -77,14 +77,43 @@ export default function CustomCakeBuilder() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
           {/* LEFT COLUMN: LIVE DYNAMIC PREVIEW */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-5 sm:p-8 shadow-xl min-h-[380px] sm:min-h-[480px]">
-            <span className="text-xs font-semibold tracking-widest text-primary mb-4 sm:mb-6 uppercase">Live Preview</span>
+          <div className="lg:col-span-6 flex flex-col items-center justify-between h-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden group">
             
-            <div className="relative w-full max-w-[320px] aspect-square flex items-center justify-center">
-              <svg viewBox="0 0 350 400" className="w-full h-full drop-shadow-[0_12px_24px_rgba(0,0,0,0.1)]" xmlns="http://www.w3.org/2000/svg">
+            {/* Ambient Radial Spotlight Glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-primary/5 to-transparent rounded-3xl pointer-events-none" />
+
+            {/* Floating Gold Sparkle Accents */}
+            <motion.div 
+              animate={{ y: [0, -12, 0], opacity: [0.4, 0.9, 0.4] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+              className="absolute top-6 left-6 text-amber-400 text-lg pointer-events-none"
+            >
+              ✦
+            </motion.div>
+            <motion.div 
+              animate={{ y: [0, 10, 0], opacity: [0.3, 0.8, 0.3] }}
+              transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
+              className="absolute bottom-16 right-8 text-primary text-sm pointer-events-none"
+            >
+              ✨
+            </motion.div>
+
+            {/* Header Badge */}
+            <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary px-3.5 py-1 rounded-full text-xs font-poppins font-semibold uppercase tracking-widest relative z-10">
+              <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+              <span>Live Artisan Preview</span>
+            </div>
+            
+            {/* Scaled & Floating Cake Presentation */}
+            <motion.div 
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px] aspect-square flex items-center justify-center my-4 relative z-10"
+            >
+              <svg viewBox="0 0 350 400" className="w-full h-full drop-shadow-[0_16px_32px_rgba(0,0,0,0.15)]" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   {/* Stand Gradient */}
                   <linearGradient id="goldStand" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -245,17 +274,22 @@ export default function CustomCakeBuilder() {
                   <path d={`M 175,${topY - 32} C 173,${topY - 35} 173,${topY - 38} 175,${topY - 42} C 177,${topY - 38} 177,${topY - 35} 175,${topY - 32} Z`} fill="#FF8C00" />
                 </g>
               </svg>
+            </motion.div>
+
+            {/* Selection Summary Pill & Price */}
+            <div className="w-full text-center relative z-10 mt-2">
+              <div className="inline-block bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-1.5 rounded-full text-[11px] font-poppins font-medium text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-gray-700/60 mb-2">
+                {flavor.name} • {frosting.name} • {tiers} Tier{tiers > 1 ? 's' : ''} {topping ? `• ${topping.name}` : ''}
+              </div>
+
+              <div className="text-[10px] text-gray-400 tracking-wider uppercase font-poppins">Total Custom Price</div>
+              <div className="text-3xl font-playfair font-semibold text-primary mt-0.5">₹{totalPrice}</div>
             </div>
 
-            {/* Price Indicator */}
-            <div className="mt-8 text-center">
-              <span className="text-gray-500 dark:text-gray-400 text-xs tracking-wider uppercase font-poppins">Estimated Price</span>
-              <div className="text-3xl font-playfair font-semibold text-primary mt-1">₹{totalPrice}</div>
-            </div>
           </div>
 
           {/* RIGHT COLUMN: BUILDER CONTROLS */}
-          <div className="lg:col-span-6 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-8 lg:p-10 shadow-xl">
+          <div className="lg:col-span-6 flex flex-col justify-between h-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl p-6 sm:p-10 shadow-xl">
             
             {/* Tiers Option */}
             <div className="mb-8">

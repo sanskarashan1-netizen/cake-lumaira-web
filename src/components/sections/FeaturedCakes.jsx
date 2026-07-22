@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from '../common/SectionHeading';
-import CakeCard from '../common/CakeCard';
+import LuxuryCakeCard from '../product/LuxuryCakeCard';
 
 const defaultCakes = [
   { id: 1, name: "Chocolate Truffle", price: "₹350", description: "Rich and dense chocolate cake with smooth truffle ganache.", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80", available: true },
@@ -65,7 +65,7 @@ export default function FeaturedCakes() {
   };
 
   return (
-    <section id="cakes" className="py-12 sm:py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section id="cakes" className="py-16 sm:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <motion.div 
         initial="hidden"
         whileInView="visible"
@@ -83,7 +83,7 @@ export default function FeaturedCakes() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {cakes.map((cake) => (
             <motion.div key={cake.id || cake.name} variants={itemVariants}>
-              <CakeCard {...cake} />
+              <LuxuryCakeCard {...cake} />
             </motion.div>
           ))}
         </div>
